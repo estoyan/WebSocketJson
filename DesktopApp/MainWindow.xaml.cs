@@ -1,6 +1,8 @@
-﻿using DesktopApp.ViewModels;
+﻿using DesktopApp.Services;
+using DesktopApp.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,12 +27,25 @@ namespace DesktopApp
 
         public MainWindow()
         {
-            MainWindowViewModel viewModel = new MainWindowViewModel();
+            MainWindowViewModel viewModel = new MainWindowViewModel( new CommunicationService());
             this.DataContext = viewModel;
             InitializeComponent();
+            this.Loaded += MyWindow_Loaded;
+            //this.Closed += Window_Closing;
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        //public override void BeginInit()
+        //{
+        //    JsonTreeView.ItemsSource = null;
+        //    JsonTreeView.Items.Clear();
+        //    base.BeginInit();
+        //}
+        private void MyWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            JsonTreeView.ItemsSource = null;
+            JsonTreeView.Items.Clear();
+        }
+        
+            private void Window_Closing()
         {
             if (this.MySignalR != null)
             {

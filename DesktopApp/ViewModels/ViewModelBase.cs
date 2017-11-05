@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace DesktopApp.ViewModels
 {
@@ -6,9 +7,13 @@ namespace DesktopApp.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        public  void OnPropertyChanged([CallerMemberName()] string name = null)
         {
-            this.PropertyChanged?.Invoke(sender, args);
+            if (name != null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+
         }
     }
 }

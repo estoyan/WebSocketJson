@@ -93,7 +93,7 @@
                 $.connection.hub.start({ transport: ['webSockets'] }).done(function () {
                     $('#connectToServer').prop('disabled', true);
                     $('#sendmessage').click(function () {
-                        chat.server.send($('#displayname').val(), $('#message').val());
+                        chat.server.send( $('#message').val());
                         $('#message').val('').focus();
                     });
                 });

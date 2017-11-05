@@ -19,7 +19,6 @@ c:\users\desi\source\repos\WebSocketChat\DesktopApp\bin\Debug\Microsoft.Owin.Hos
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\bin\Debug\Microsoft.Owin.Hosting.xml
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\bin\Debug\Microsoft.Owin.Security.xml
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\bin\Debug\Newtonsoft.Json.xml
-c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\DesktopApp.csprojResolveAssemblyReference.cache
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\MainWindow.g.cs
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\App.g.cs
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\DesktopApp_MarkupCompile.cache
@@ -32,3 +31,5 @@ c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\DesktopApp.csproj.
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\DesktopApp.exe
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\DesktopApp.pdb
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Desi\source\repos\WebSocketChat\DesktopApp\bin\Debug\Microsoft.AspNet.SignalR.Client.dll
+C:\Users\Desi\source\repos\WebSocketChat\DesktopApp\bin\Debug\Microsoft.AspNet.SignalR.Client.xml

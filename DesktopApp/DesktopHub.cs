@@ -4,9 +4,8 @@ namespace DesktopApp
 {
     public class DesktopHub:Hub
     {
-        public void Send(string name, object message)
+        public void Send(string message)
         {
-            Clients.All.addMessage(name, message);
             Clients.All.sendMessage(message);
         }
     }
