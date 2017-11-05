@@ -1,0 +1,36 @@
+﻿<Window x:Class="DesktopApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopApp.Converters"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+
+    <Window.Resources>
+        <local:ParameterConverter x:Key="ParameterConverter"></local:ParameterConverter>
+    </Window.Resources>
+    
+    <Grid>
+        <Label Content="Host" HorizontalAlignment="Left" Margin="25,36,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="Host" HorizontalAlignment="Left" Height="23" Margin="96,40,0,0"  TextWrapping="Wrap" Text="{Binding Host, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Port" HorizontalAlignment="Left" Margin="25,65,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.151,0.406" Width="42"/>
+        <TextBox Name="Port" HorizontalAlignment="Left" Height="23" Margin="94,68,0,0" TextWrapping="Wrap" Text="{Binding Port, Mode=TwoWay}" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.555,-1.405"/>
+        <Button Content="Start Server" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding StartServer}" Margin="395,40,0,0">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource ParameterConverter}">
+                    <Binding  ElementName="Host" Path="Text"/>
+                    <Binding ElementName="Port" Path="Text"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+        <TextBox Name="Message" HorizontalAlignment="Left" Margin="25,163,0,0" TextWrapping="Wrap" Text="{Binding Chat, Mode=TwoWay}" VerticalAlignment="Top" Width="317" Height="118"/>
+        <Button Content="Send" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding SendMessage}" Margin="395,163,0,0">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource ParameterConverter}">
+                    <Binding Path="Host" ElementName="Message"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+    </Grid>
+</Window>
