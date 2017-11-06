@@ -27,31 +27,32 @@ namespace DesktopApp
 
         public MainWindow()
         {
-            MainWindowViewModel viewModel = new MainWindowViewModel( new CommunicationService());
-            this.DataContext = viewModel;
+            this.ViewModel=new MainWindowViewModel(new CommunicationService());
             InitializeComponent();
             this.Loaded += MyWindow_Loaded;
-            //this.Closed += Window_Closing;
         }
-        //public override void BeginInit()
-        //{
-        //    JsonTreeView.ItemsSource = null;
-        //    JsonTreeView.Items.Clear();
-        //    base.BeginInit();
-        //}
+
+        public MainWindowViewModel ViewModel
+        {
+            get
+            {
+                return this.DataContext as MainWindowViewModel;
+            }
+
+            set
+            {
+                this.DataContext = value;
+            }
+           
+        }
+
         private void MyWindow_Loaded(object sender, RoutedEventArgs e)
         {
+
+
             JsonTreeView.ItemsSource = null;
             JsonTreeView.Items.Clear();
-        }
-        
-            private void Window_Closing()
-        {
-            if (this.MySignalR != null)
-            {
-                this.MySignalR.Dispose();
-                this.MySignalR = null;
-            }
+            JsonTreeView.ItemsSource = ViewModel.JsonToken;
         }
     }
 }

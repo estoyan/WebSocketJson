@@ -53,8 +53,6 @@ namespace DesktopApp.Commands
             _canExecute = canExecute;
         }
 
-        //TODO check is this needed?
-        [DebuggerStepThrough()]
         public bool CanExecute(object parameter)
         {
             return _canExecute == null ? true : _canExecute((T)parameter);

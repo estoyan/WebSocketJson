@@ -11,7 +11,6 @@ namespace DesktopApp.Services
         event Action<string> NewMessage;
         bool StartServer(string serverUrl);
         Task ConnectAsync(string hostUrl);
-        Task LogoutAsync();
         Task SendBroadcastMessageAsync(string msg);
     }
 }

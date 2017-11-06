@@ -33,3 +33,4 @@ c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\DesktopApp.pdb
 c:\users\desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Desi\source\repos\WebSocketChat\DesktopApp\bin\Debug\Microsoft.AspNet.SignalR.Client.dll
 C:\Users\Desi\source\repos\WebSocketChat\DesktopApp\bin\Debug\Microsoft.AspNet.SignalR.Client.xml
+C:\Users\Desi\source\repos\WebSocketChat\DesktopApp\obj\Debug\DesktopApp.csprojResolveAssemblyReference.cache

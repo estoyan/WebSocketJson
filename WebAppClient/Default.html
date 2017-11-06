@@ -9,6 +9,7 @@
             padding: 20px;
             margin: 20px;
         }
+
         #container label {
             display: inline-block;
             width: 100px;
@@ -27,6 +28,7 @@
             vertical-align: top;
             height: 5em;
         }
+
         .error {
             display: none;
             margin-left: 10px;
@@ -43,7 +45,7 @@
         <div id="sever-configuration">
             <div class="hostwrapper">
                 <label for="host">Host:</label>
-                <input type="url" id="host" name="Host" value="localhost"/>
+                <input type="url" id="host" name="Host" value="localhost" />
                 <span class="error">A valid url is required</span>
             </div>
             <div class="portWrapper">
@@ -51,7 +53,7 @@
                 <input type="text" id="port" name="Port" value="8080" />
                 <span class="error">A valid port is required</span>
             </div>
-            <div >
+            <div>
                 <input id="connectToServer" type="button" value="Connect" />
             </div>
         </div>
@@ -62,7 +64,7 @@
         </div>
         <ul id="discussion"></ul>
     </div>
-    
+
     <script src="Scripts/jquery-1.6.4.js"></script>
     <script src="Scripts/jquery.signalR-2.2.2.js"></script>
     <script type="text/javascript">
@@ -81,25 +83,27 @@
                 };
                 var url = `http://${host.val()}:${port.val()}/signalr`;
 
-                $.getScript(url + '/hubs');
-                $.connection.hub.url = url;
-                var chat = $.connection.desktopHub;
-                chat.client.sendMessage = function (message) {
-                    var div = walkJson(JSON.parse(message));
-                    $('#discussion').append(div).html();
-                };
-                $('#message').focus();
+                $.getScript(url + '/hubs').done(function () {
 
-                $.connection.hub.start({ transport: ['webSockets'] }).done(function () {
-                    $('#connectToServer').prop('disabled', true);
-                    $('#sendmessage').click(function () {
-                        chat.server.send( $('#message').val());
-                        $('#message').val('').focus();
+                    $.connection.hub.url = url;
+                    var chat = $.connection.desktopHub;
+                    chat.client.sendMessage = function (message) {
+                        var div = walkJson(JSON.parse(message));
+                        $('#discussion').append(div).html();
+                    };
+                    $('#message').focus();
+
+                    $.connection.hub.start({ transport: ['webSockets'] }).done(function () {
+                        $('#connectToServer').prop('disabled', true);
+                        $('#sendmessage').click(function () {
+                            chat.server.send($('#message').val());
+                            $('#message').val('').focus();
+                        });
                     });
-                });
+                })
             });
 
-            function validate (input) {
+            function validate(input) {
                 if (input.val() == undefined || input.val().length == 0
                     || (input.selector == '#port'
                         && (input.val() < 0 || input.val() > 65535 || isNaN(input.val())))) {
@@ -120,11 +124,11 @@
                     var spanColon = $('<span/>').text(":").css("font-weight", "Bold");
                     result.append(spanKey).append(spanColon);
                     if (typeof value === 'object') {
-                        var div = walkJson  (value).css("margin-left", "15px")
+                        var div = walkJson(value).css("margin-left", "15px")
                         result.append(div);
                     }
                     else {
-                        var spanValue = $('<span/>').text(" "+value)
+                        var spanValue = $('<span/>').text(" " + value)
                         var div = $('<div />').append(spanValue);
                         result.append(div);
                     }

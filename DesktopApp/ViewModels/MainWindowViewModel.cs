@@ -1,38 +1,38 @@
 ﻿using DesktopApp.Commands;
-using System.ComponentModel;
 using System;
 using System.Threading.Tasks;
-using Microsoft.Owin.Hosting;
 using System.Windows;
 using System.Windows.Input;
 using DesktopApp.Services;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace DesktopApp.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private string host = "localhost";
-        private int port = 80;
+        private const string defaultHost= "localhost";
+        private const int defaultPort = 8080;
+        private string host = defaultHost;
+        private int port = defaultPort;
         private string chat;
         private ICommand sendMessageCommand;
         private ICommand startServerCommand;
         private ICommunicationService communicationService;
         private bool isServerStarted;
         private bool isConnected;
-        private List<JToken> jsonToken;
+        private ObservableCollection<JToken> jsonToken;
 
 
         public MainWindowViewModel(ICommunicationService service)
         {
             this.communicationService = service;
             service.NewMessage += this.NewMessage;
-            this.jsonToken = new List<JToken>();
+            this.jsonToken = new ObservableCollection<JToken>();
         }
 
-        public IDisposable MySignalR { get; set; }
         public bool IsConnected
         {
             get { return isConnected; }
@@ -63,7 +63,7 @@ namespace DesktopApp.ViewModels
             {
                 if (value == null || value == string.Empty)
                 {
-                    this.host = "localhost";
+                    this.host = defaultHost;
                 }
                 else
                 {
@@ -82,6 +82,10 @@ namespace DesktopApp.ViewModels
             }
             set
             {
+                if (value <-1 || value> 65535)
+                {
+                    this.port = defaultPort;
+                }
                 this.port = value;
                 base.OnPropertyChanged();
             }
@@ -96,10 +100,11 @@ namespace DesktopApp.ViewModels
             set
             {
                 this.chat = value;
+                base.OnPropertyChanged();
             }
         }
-        
-        public List<JToken> JsonToken
+
+        public ObservableCollection<JToken> JsonToken
         {
             get
             {
@@ -140,29 +145,13 @@ namespace DesktopApp.ViewModels
 
         private void StartServer(object o)
         {
-            //TODO extract this to Service
-            try
+            string url = $"http://{this.host}:{this.port}/";
+            if (this.communicationService.StartServer(url))
             {
-                string url = $"http://{this.host}:{this.port}/";
-                this.MySignalR = WebApp.Start<Startup>(url);
-
-                if (this.MySignalR == null)
-                {
-                    MessageBox.Show("web app started failed !");
-                }
-                else
-                {
-                    MessageBox.Show("web app started! Try to visit " + url + "signalr/hubs");
-                    this.IsServerStarted = true;
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                this.IsServerStarted = true;
             }
         }
+
 
         private async Task<bool> ConnectToServer(object o)
         {
@@ -186,15 +175,13 @@ namespace DesktopApp.ViewModels
 
         private bool CanStartServer()
         {
-            //TODO add validation
-            return true;
+
+            return this.Host != null && this.Port > -1&&this.Port<65635&&!this.isServerStarted;
         }
 
         private bool CanSendMessage()
         {
-
-            //TODO add validation!
-            return true;
+            return this.IsServerStarted && this.isConnected&& this.Chat!=null;
         }
 
         private async Task<bool> SendMessage()
@@ -210,18 +197,7 @@ namespace DesktopApp.ViewModels
             }
             finally
             {
-                try
-                {
-                var jsonToken = JToken.Parse(this.chat);
-                if (jsonToken != null)
-                {
-                    this.JsonToken.Add(jsonToken);
-                }
-                }
-                catch (JsonReaderException ex)
-                {
-                    MessageBox.Show("Could not open the JSON string:\r\n" + ex.Message);
-                }
+                this.NewMessage(this.chat);
             }
         }
 
@@ -232,7 +208,11 @@ namespace DesktopApp.ViewModels
                 var jsonToken = JToken.Parse(msg);
                 if (jsonToken != null)
                 {
-                    this.JsonToken.Add(jsonToken);
+                    App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        this.JsonToken.Add(jsonToken);
+
+                    });
                 }
             }
             catch (JsonReaderException ex)

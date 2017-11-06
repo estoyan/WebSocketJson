@@ -15,3 +15,4 @@ C:\Users\Desi\source\repos\WebSocketChat\WebAppClient\bin\Microsoft.CodeDom.Prov
 C:\Users\Desi\source\repos\WebSocketChat\WebAppClient\obj\Debug\WebAppClient.csproj.CoreCompileInputs.cache
 C:\Users\Desi\source\repos\WebSocketChat\WebAppClient\obj\Debug\WebAppClient.dll
 C:\Users\Desi\source\repos\WebSocketChat\WebAppClient\obj\Debug\WebAppClient.pdb
+C:\Users\Desi\source\repos\WebSocketChat\WebAppClient\obj\Debug\WebAppClient.csprojResolveAssemblyReference.cache

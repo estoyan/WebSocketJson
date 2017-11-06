@@ -92,7 +92,6 @@
     <Compile Include="Commands\ReleayCommandAsync.cs" />
     <Compile Include="Converters\MethodToValueConverter.cs" />
     <Compile Include="DesktopHub.cs" />
-    <Compile Include="Converters\ParameterConverter.cs" />
     <Compile Include="Services\CommunicationService.cs" />
     <Compile Include="Services\ICommunicationService.cs" />
     <Compile Include="Startup.cs" />
