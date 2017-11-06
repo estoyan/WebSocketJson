@@ -195,10 +195,6 @@ namespace DesktopApp.ViewModels
             {
                 return false;
             }
-            finally
-            {
-                this.NewMessage(this.chat);
-            }
         }
 
         private void NewMessage(string msg)

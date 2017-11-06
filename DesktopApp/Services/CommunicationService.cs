@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNet.SignalR.Client.Transports;
 using Microsoft.Owin.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -20,7 +18,7 @@ namespace DesktopApp.Services
             this.Connection = new HubConnection(hostUrl);
             this.hubProxy = Connection.CreateHubProxy("DesktopHub");
             this.hubProxy.On<string>("sendMessage", (m) => NewMessage?.Invoke(m));
-            await this.Connection.Start();
+            await this.Connection.Start(new WebSocketTransport());
         }
 
         public async Task SendBroadcastMessageAsync(string msg)
